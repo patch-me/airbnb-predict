@@ -1,0 +1,14 @@
+# docker run -it --rm -p 8888:8888 quay.io/jupyter/datascience-notebook:2023-11-17 jupyter notebook --ip 0.0.0.0
+version: "3"
+services:
+  # build from local dockerfile
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/home/jovyan/csv
+    command: ["start-notebook.sh", "--ip", "0.0.0.0"]
